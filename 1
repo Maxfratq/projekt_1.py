@@ -9,7 +9,6 @@ discord: maximrtop
 import sys
 import string
 
-# Předpřipravené texty
 TEXTS = [
     """Situated about 10 miles west of Kemmerer,
 Fossil Butte is a ruggedly impressive
@@ -37,8 +36,6 @@ other freshwater genera and herring similar to those
 in modern oceans. Other fish such as paddlefish,
 garpike and stingray are also present."""
 ]
-
-# Registrovaní uživatelé a jejich hesla
 USERS = {
     "bob": "123",
     "ann": "pass123",
@@ -46,7 +43,6 @@ USERS = {
     "liz": "pass123"
 }
 
-# Přihlášení uživatele
 username = input("username: ")
 password = input("password: ")
 
@@ -58,8 +54,6 @@ print("-" * 40)
 print(f"Welcome to the app, {username}")
 print("We have 3 texts to be analyzed.")
 print("-" * 40)
-
-# Volba textu
 selection = input("Enter a number btw. 1 and 3 to select: ")
 
 if not selection.isdigit():
@@ -73,23 +67,18 @@ if selection < 1 or selection > len(TEXTS):
 
 print("-" * 40)
 
-# Vybraný text (indexujeme od 0)
 selected_text = TEXTS[selection - 1]
 
-# Rozdělení textu na jednotlivá slova a odstranění okolní interpunkce
 words = selected_text.split()
 cleaned_words = [word.strip(string.punctuation) for word in words if word.strip(string.punctuation)]
 
-# Výpočet statistik
 total_words = len(cleaned_words)
-titlecase_count = sum(1 for word in cleaned_words if word.istitle())
-# Pro kontrolu, zda je slovo psané velkými písmeny, zohledníme pouze slova obsahující pouze písmena
+titlecase_count = sum(1 for word in cleaned_words if word.istitle()
 uppercase_count = sum(1 for word in cleaned_words if word.isupper() and word.isalpha())
 lowercase_count = sum(1 for word in cleaned_words if word.islower())
 numeric_count = sum(1 for word in cleaned_words if word.isdigit())
 numeric_sum = sum(int(word) for word in cleaned_words if word.isdigit())
 
-# Výpis základních statistik
 print(f"There are {total_words} words in the selected text.")
 print(f"There are {titlecase_count} titlecase words.")
 print(f"There are {uppercase_count} uppercase words.")
@@ -98,13 +87,13 @@ print(f"There are {numeric_count} numeric strings.")
 print(f"The sum of all the numbers {numeric_sum}")
 print("-" * 40)
 
-# Sestavení slovníku pro četnost délek slov
+
 length_freq = {}
 for word in cleaned_words:
     length = len(word)
     length_freq[length] = length_freq.get(length, 0) + 1
 
-# Výpis grafu četnosti délek slov
+
 print(f"{'LEN':>3}|{'OCCURENCES':^15}|{'NR.':>3}")
 print("-" * 40)
 for length in sorted(length_freq):
